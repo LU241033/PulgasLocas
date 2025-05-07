@@ -141,5 +141,8 @@ public class PulgaGame implements Runnable {
             }
         }
     }
+        public SpawnPulga getSpawner() {
+        return spawner;
+    }
 }
 
