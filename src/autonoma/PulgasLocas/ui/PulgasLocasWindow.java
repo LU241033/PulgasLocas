@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package autonoma.PulgasLocas.ui;
 
 import autonoma.PulgasLocas.elements.CampoBatalla;
@@ -10,59 +6,58 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
- *
- * @author 
- */
-import javax.swing.JFrame;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-/**
- * Clase que representa la ventana principal del juego Pulgas Locas.
- * Extiende JFrame y actúa como contenedor gráfico principal del campo de batalla.
- * Implementa la interfaz {@code GraphicContainer}, que permite la interacción
- * con los elementos gráficos del juego.
+ * Clase que representa la ventana principal del juego "Pulgas Locas".
+ * Esta clase extiende de {@link javax.swing.JFrame} e implementa la interfaz {@link GraphicContainer}
+ * para manejar la visualización gráfica y los eventos de usuario como teclas y clics.
  * 
- * Esta ventana configura las propiedades básicas del JFrame como título,
- * tamaño, cierre, centrado, y escucha eventos del teclado para controlar el juego.
- * 
- * @author Alejandra
+ * @author jgiugtiñut
+ * @since 05/05/2025
+ * @version 1.0.0
  */
 public class PulgasLocasWindow extends javax.swing.JFrame implements GraphicContainer {
 
-    /**
-     * Campo de batalla donde se desarrolla el juego.
-     * Se inicializa posteriormente y es el área donde se dibujan los sprites.
-     */
+    // Campo de batalla donde se desarrolla la lógica del juego
     protected CampoBatalla campoBatalla;
 
     /**
-     * Constructor de la clase PulgasLocasWindow.
-     * Inicializa y configura la ventana principal del juego, 
-     * definiendo su tamaño, comportamiento al cerrar, ubicación y eventos clave.
+     * Constructor de la clase que inicializa la ventana del juego.
+     * Configura el tamaño, comportamiento y eventos de la ventana.
      */
     public PulgasLocasWindow() {
-        super("Pulgas Locas"); // Título de la ventana
+        super("Pulgas Locas");
 
-        // Configura las propiedades de la ventana
-        setSize(800, 600); // Tamaño fijo de la ventana
-        setDefaultCloseOperation(EXIT_ON_CLOSE); // Cierra la aplicación al cerrar la ventana
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
-        setResizable(false); // No permite redimensionar la ventana
+        setSize(800, 600);  // Establece el tamaño de la ventana
+        setDefaultCloseOperation(EXIT_ON_CLOSE);  // Cierra la aplicación al cerrar la ventana
+        setLocationRelativeTo(null);  // Centra la ventana en la pantalla
+        setResizable(false);  // Deshabilita el redimensionado de la ventana
 
-        // Agrega un KeyListener para capturar eventos de teclado
+        // Configura el manejador de clics del ratón
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mousePresionado(e);  // Llama a la función que maneja los clics
+            }
+        });
+
+        // Configura el manejador de teclas
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent evt) {
-                formKeyPressed(evt); // Método personalizado para manejar teclas presionadas
+                formKeyPressed(evt);  // Llama a la función que maneja las teclas presionadas
             }
         });
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * Este método se llama al presionar una tecla.
+     * Se verifica si la tecla presionada corresponde a un comando específico.
+     * 
+     * @param evt Evento de la tecla presionada.
+     */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -88,81 +83,77 @@ public class PulgasLocasWindow extends javax.swing.JFrame implements GraphicCont
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-    /**
-     * Método que maneja los eventos de teclado cuando una tecla es presionada.
-     * <ul>
-     *   <li>Si se presiona la tecla <b>Q</b>, se cierra inmediatamente la aplicación.</li>
-     *   <li>Si el campo de batalla ha sido inicializado y se presiona la barra espaciadora (SPACE),
-     *       la tecla <b>M</b> o la tecla <b>R</b>, el evento se pasa al método {@code keyPressed} 
-     *       de la clase {@code CampoBatalla} para que sea procesado dentro del juego.</li>
-     * </ul>
-     *
-     * @param evt Evento de teclado capturado
-     */
+     // Sale del juego si se presiona la tecla 'Q'
         if (evt.getKeyCode() == KeyEvent.VK_Q) {
-            System.exit(0);
+            System.exit(0);  // Termina el juego
+
         }
 
-        // Envía los eventos de teclas relevantes al campo de batalla
+        // Si el campo de batalla no es nulo, verifica qué tecla fue presionada y la maneja
         if (campoBatalla != null &&
             (evt.getKeyCode() == KeyEvent.VK_SPACE ||
              evt.getKeyCode() == KeyEvent.VK_M ||
+             evt.getKeyCode() == KeyEvent.VK_S || 
+             evt.getKeyCode() == KeyEvent.VK_P ||
              evt.getKeyCode() == KeyEvent.VK_R)) {
 
+            // Pasa la tecla presionada al campo de batalla para su manejo
             campoBatalla.keyPressed(evt.getKeyCode());
-        
-    }
-     // TODO add your handling code here:
-    }//GEN-LAST:event_formKeyPressed
+        }
+    
     /**
-     * Establece el campo de batalla que se mostrará en esta ventana.
-     * Este método permite inyectar la instancia de {@code CampoBatalla}
-     * para que pueda ser utilizada en los métodos de dibujo y control.
-     *
-     * @param campoBatalla Objeto que representa el área del juego
+     * Este método es llamado al hacer clic en la ventana.
+     * 
+     * @param e Evento del clic del ratón.
+     */
+    
+    }//GEN-LAST:event_formKeyPressed
+private void mousePresionado(MouseEvent e) {
+        // Llama al método disparoPistola con las coordenadas del clic
+        this.campoBatalla.disparoPistola(e.getX(), e.getY());
+    }
+
+    /**
+     * Asigna el campo de batalla en el que se juega.
+     * 
+     * @param campoBatalla El campo de batalla donde se desarrollará el juego.
      */
     public void setCampoBatalla(CampoBatalla campoBatalla) {
         this.campoBatalla = campoBatalla;
     }
 
     /**
-     * Método sobrescrito que se encarga de pintar la ventana.
-     * Llama al método {@code paint} del campo de batalla si este ha sido definido.
-     * Esto asegura que todos los elementos gráficos del juego se dibujen correctamente.
-     *
-     * @param g Objeto {@code Graphics} que proporciona el contexto gráfico
+     * Dibuja en la ventana utilizando el objeto {@link Graphics}.
+     * Si el campo de batalla no es nulo, llama al método {@code paint} del campo de batalla.
+     * 
+     * @param g Objeto {@link Graphics} para pintar sobre la ventana.
      */
     @Override
     public void paint(Graphics g) {
-        super.paint(g); // Pinta los componentes estándar de la ventana
+        super.paint(g);
         if (campoBatalla != null) {
-            campoBatalla.paint(g); // Dibuja el contenido del campo de batalla
+            campoBatalla.paint(g);  // Dibuja el campo de batalla
         }
     }
 
     /**
-     * Método definido por la interfaz {@code GraphicContainer}.
-     * Solicita una nueva repintada de la ventana, lo cual actualiza la interfaz gráfica.
-     * Se utiliza para refrescar la vista del juego cuando cambian los elementos gráficos.
+     * Refresca la ventana llamando a {@code repaint} para redibujar el contenido.
      */
     @Override
     public void refresh() {
-        repaint();
+        repaint();  // Solicita que la ventana sea redibujada
     }
 
     /**
-     * Método definido por la interfaz {@code GraphicContainer}.
-     * Devuelve los límites actuales de la ventana como un objeto {@code Rectangle}.
-     * Es útil para calcular colisiones o limitar el movimiento de los sprites dentro del área visible.
-     *
-     * @return Un objeto {@code Rectangle} con los límites de la ventana
+     * Obtiene los límites de la ventana de la interfaz gráfica.
+     * 
+     * @return Un objeto {@link Rectangle} que define los límites de la ventana.
      */
     @Override
     public Rectangle getBoundaries() {
-        return getBounds();
-    }
-
-
+        return getBounds();  // Devuelve los límites de la ventana
+    
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
