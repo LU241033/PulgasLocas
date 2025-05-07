@@ -56,7 +56,7 @@ public class LectorArchivoTextoPlano implements Lector {
                 }
             }
             return max;
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             return 0;
         }
     }
