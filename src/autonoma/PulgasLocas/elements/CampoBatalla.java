@@ -170,27 +170,23 @@ public class CampoBatalla extends SpriteContainer {
      * Maneja el cierre del juego solicitando el nombre del jugador y guardando su puntaje.
      */
     private void handleExitGame() {
-        try {
-            JTextField campoTexto = new JTextField();
-            Object[] mensaje = {
-                "Ingresa tu nombre:", campoTexto
-            };
-            int opcion = JOptionPane.showConfirmDialog(
-                    null,
-                    mensaje,
-                    "Nombre del jugador",
-                    JOptionPane.OK_CANCEL_OPTION
-            );
-            if (opcion == JOptionPane.OK_OPTION) {
-                String nombre = campoTexto.getText();
-                this.escritor.escribir(nombre + "," + Integer.toString(puntaje));
-            } else {
-                JOptionPane.showMessageDialog(null, "PUNTAJE NO GUARDADO");
-            }
-            System.exit(0);
-        } catch (IOException ex) {
-            System.out.println("Error al leer el archivo");
+        JTextField campoTexto = new JTextField();
+        Object[] mensaje = {
+            "Ingresa tu nombre:", campoTexto
+        };
+        int opcion = JOptionPane.showConfirmDialog(
+                null,
+                mensaje,
+                "Nombre del jugador",
+                JOptionPane.OK_CANCEL_OPTION
+        );
+        if (opcion == JOptionPane.OK_OPTION) {
+            String nombre = campoTexto.getText();
+            this.escritor.escribir(nombre + "," + Integer.toString(puntaje));
+        } else {
+            JOptionPane.showMessageDialog(null, "PUNTAJE NO GUARDADO");
         }
+        System.exit(0);
     }
 
     /**
